@@ -12,8 +12,9 @@
 
 (defn walk [tree]
   (loop [tree tree]
-    (when-not (zip/end? tree)
-      (transform (first (zip/next tree)) tree)
+    (transform (zip/node tree) tree)
+    (if (zip/end? tree)
+      (zip/root tree)
       (recur (zip/next tree)))))
 
 (defn print-content [tree]
