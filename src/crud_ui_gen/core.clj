@@ -1,6 +1,27 @@
-(ns crud-ui-gen.core)
+(ns crud-ui-gen.core
+  (:require [clojure.data.xml :as xml]
+            [clojure.walk :as walk]
+            [clojure.zip :as zip]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn walk [tree]
+  (loop [tree tree]
+    (when-not (zip/end? tree)
+      (let [e (first (zip/next tree))]
+        (println
+          (cond
+            (= (:tag e) :html) (dissoc e :content)
+            (:tag e) (dissoc e :content)
+            :else e)))
+      (recur (zip/next tree)))))
+
+(defn print-content [tree]
+  (loop [tree tree]
+    (println (:content (first (zip/next tree))))
+    (if (zip/end? tree)
+      'end
+      (recur (zip/next tree)))))
+
+(let [html (xml/parse (java.io.FileReader. "a.html"))]
+  (walk (zip/xml-zip html)))
+
+

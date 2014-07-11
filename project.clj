@@ -3,4 +3,5 @@
   :url "undefined"
   :license {:name "GPL"
             :url "http://gnu.org/"}
-  :dependencies [[org.clojure/clojure "1.5.1"])
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [org.clojure/data.xml "0.0.6"]])

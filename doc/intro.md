@@ -1,3 +1,3 @@
 # Introduction to crud-ui-gen
 
-TODO: write [great documentation](http://jacobian.org/writing/great-documentation/what-to-write/)
+Parse Html 5 as xml and generate React JavaScript.
