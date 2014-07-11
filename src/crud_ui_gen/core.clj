@@ -3,15 +3,17 @@
             [clojure.walk :as walk]
             [clojure.zip :as zip]))
 
+(defn transform [e tree]
+  (println
+    (cond
+      (= (:tag e) :html) (dissoc e :content)
+      (:tag e) (dissoc e :content)
+      :else e)))
+
 (defn walk [tree]
   (loop [tree tree]
     (when-not (zip/end? tree)
-      (let [e (first (zip/next tree))]
-        (println
-          (cond
-            (= (:tag e) :html) (dissoc e :content)
-            (:tag e) (dissoc e :content)
-            :else e)))
+      (transform (first (zip/next tree)) tree)
       (recur (zip/next tree)))))
 
 (defn print-content [tree]
